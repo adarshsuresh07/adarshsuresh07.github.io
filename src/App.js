@@ -1,14 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import { ColorPicker } from './pages/components/ColorPicker';
-import { ChatRoom } from './pages/components/Chat';
+import Landing from './pages/Landing';
 
 function App() {
   return (
-    <div >
-      <ChatRoom />
-      <ColorPicker />
-    </div>
+      <Landing />
   );
 }
 

@@ -1,0 +1,72 @@
+import { MdCode } from "react-icons/md";
+import { PiSuitcaseBold } from "react-icons/pi";
+import { FiGitPullRequest } from "react-icons/fi";
+import { useEffect, useState } from "react";
+
+function getExperience() {
+    // Convert the input dates to JavaScript Date objects
+    const start = new Date("11/08/2021");
+    const end = new Date();
+
+    // Calculate the total year difference
+    let yearDiff = end.getFullYear() - start.getFullYear();
+
+    // Calculate the total month difference
+    let monthDiff = end.getMonth() - start.getMonth();
+
+    // Adjust the year and month difference if the end month is less than the start month
+    if (monthDiff < 0) {
+        yearDiff--;
+        monthDiff += 12;
+    }
+
+    return { years: yearDiff, months: monthDiff };
+}
+
+const statsDetails = {
+    "experience": {
+        display: "Experience till now",
+        icon: <PiSuitcaseBold />
+    },
+    "projects": {
+        display: "Projects completed",
+        icon: <FiGitPullRequest />
+    },
+    "leetcode": {
+        display: "Leetcode solved",
+        icon: <MdCode />
+    }
+}
+
+const experience = getExperience()
+statsDetails.experience["value"] = `${experience.years}y${experience.months}m`
+
+export default function Stats() {
+
+    const [stats, setStats] = useState(statsDetails);
+
+    useEffect(()=>{
+        // fetch("https://alfa-leetcode-api.onrender.com/adarshsuresh07/solved").then((response)=>{
+        //     response.json().then((data)=>{
+        //         setStats((prev)=>{
+        //             console.log(data)
+        //             prev.leetcode["value"] = data.solvedProblem;
+        //             return prev;
+        //         })
+        //     })
+        // })
+    },[])
+
+    return (
+        <>
+            {Object.values(stats).map((details) => {
+                return(
+                <column className="outline">
+                    {details.icon}
+                    <text>{details.display}</text>
+                    <text>{details.value ?? "--"}</text>
+                </column>)
+            })}
+        </>
+    )
+}
