@@ -6,7 +6,26 @@ import OneLiner from "./OneLiner"
 import ContactMe from "./Contactme"
 import { useState } from "react"
 import SubPageFlipCard from "./SubPageFlipCard"
+import {themePhotos} from "../assets/constants"
 
+const themes = {
+    "pink": {
+        '--background-color': '#dddcdd',
+        '--header-color': '#FFCFCF',
+        '--card-color': '#d1abc0',
+        '--text-color': '#333',
+        '--padding': '20px',
+        '--header-font-color': '#F7F9F2',
+    },
+    "black": {
+        '--background-color': '#010e26',
+        '--header-color': '#FFCFCF',
+        '--card-color': '#f6fbec',
+        '--text-color': '#333',
+        '--padding': '20px',
+        '--header-font-color': '#F7F9F2',
+    }
+}
 
 const card1 = {
     "home": <OneLiner />,
@@ -15,13 +34,7 @@ const card1 = {
     "project3": <p>project 3</p>,
     "experience": <p>experience</p>
 }
-const card2 = {
-    "home": <img src={Sukuna} alt="Adarsh" />,
-    "project1": <p>project 1</p>,
-    "project2": <p>project 2</p>,
-    "project3": <p>project 3</p>,
-    "experience": <p>experience</p>
-}
+
 const card3 = {
     "home": <Aboutme />,
     "project1": <p>project 1</p>,
@@ -48,6 +61,7 @@ export default function Landing() {
     const [isPageFlipped, setIsPageFlipped] = useState(false);
     const [isSubPageFlipped, setIsSubPageFlipped] = useState(false);
     const [selectedPage, setSelectedPage] = useState("home");
+    const [selectedTheme, selectTheme] = useState("pink");
 
     function setPage(page) {
         if (selectedPage === page)
@@ -63,6 +77,14 @@ export default function Landing() {
         setSelectedPage(page);
     }
 
+    const card2 = {
+        "home": <img src={themePhotos[selectedTheme].img} alt="Adarsh" />,
+        "project1": <p>project 1</p>,
+        "project2": <p>project 2</p>,
+        "project3": <p>project 3</p>,
+        "experience": <p>experience</p>
+    }
+
     const card5 = {
         "home": <ContactMe />,
         "project": <div>
@@ -74,10 +96,10 @@ export default function Landing() {
     }
 
     return (
-        <main className="container">
+        <main className="container" style={themes[selectedTheme]}>
             <main className="grid-container">
                 <main className="grid-row" style={{ '--row-height': '10%' }}>
-                    <Header onClick={setPage} />
+                    <Header onPageClick={setPage} selectedTheme={selectedTheme} selectTheme={selectTheme} />
                 </main>
                 <main className="grid-row" style={{ '--row-height': '90%' }}>
                     <main className="grid-col">

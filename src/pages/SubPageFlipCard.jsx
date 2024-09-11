@@ -26,6 +26,17 @@ export default function SubPageFlipCard({
         }
     }, [isSubPageFlipped, isPageFlipped])
 
+    useEffect(() => {
+        if (isFlipped) {
+            setFront(content);
+            setTimeout(() => setBack(content), 700);
+        } else {
+            setBack(content);
+            setTimeout(() => setFront(content), 700);
+
+        }
+    }, [content])
+
     return (
         <FlipCard
             isFlipped={isFlipped}
