@@ -13,9 +13,10 @@ $violetphoto-card: #d1abc0;
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    // font-family: Arial, sans-serif;
     background-color: $background-color;
     height: 100vh;
+    font-family: "Nunito", sans-serif;
 }
 
 .container {
@@ -53,48 +54,17 @@ body {
 }
 
 .card {
-    background-color: $card-color;
-    border-radius: 10px;
     width: var(--card-width, 100%); // Use CSS variable for dynamic width
+    height: 100%;
     box-sizing: border-box;
     overflow: hidden;
-    padding: $padding;
 
-    &.profile {
-        padding: 0;
-        border: 2px solid black;
-        border-color: $card-color;
-    }
-
-    &.profile img {
+    img {
         width: 100%;
-    }
-
-    &.contact {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-
-        a {
-            margin-top: 10px;
-            color: $text-color;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    }
-
-    &.header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: $padding;
-        color: $header-font-color;
-
-        a {
-            text-decoration: none;
-            color: $header-font-color;
-        }
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 9px;
     }
 }
 
@@ -102,6 +72,9 @@ row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
     gap: 15px;
 }
 
@@ -111,6 +84,9 @@ column {
     align-items: center;
     justify-content: space-between;
     gap: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 
     &.outline {
         text-align: center;
@@ -120,11 +96,6 @@ column {
         padding: 10px;
         font-size: 14px;
     }
-}
-
-.flip {
-    perspective: 100rem;
-    transition: all 700ms ease;
 }
 
 name {
@@ -140,8 +111,7 @@ name {
     display: flex;
     align-items: flex-end;
     box-sizing: border-box;
-    padding-bottom: 60px;
-    padding-right: 270px;
+    padding-bottom: 40px;
 }
 
 .italic-word {
@@ -152,6 +122,7 @@ name {
 .contact-list {
     font-weight: 700;
     display: grid;
+    width: 100%;
 
     dt,
     dd {
@@ -209,6 +180,7 @@ name {
     flex: 0 1 auto;
     margin-right: 20px;
     overflow-wrap: anywhere;
+    font-size: 14px;
 }
 
 .sr-only {
@@ -219,4 +191,56 @@ name {
     position: absolute;
     white-space: nowrap;
     width: 1px;
+}
+
+.flip-card {
+    position: absolute;
+    backface-visibility: hidden; // Prevents showing the back side when not flipped
+    transition: transform 0.7s ease; // Smooth flipping transition
+
+    background-color: $card-color;
+    border-radius: 10px;
+    width: var(--card-width, 100%); // Use CSS variable for dynamic width
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: var(--card-padding, $padding);
+    perspective: 1000px; // Creates the 3D effect for the flip
+}
+
+.flip-card-front {
+    transform: rotateY(0deg); // Default state of the front side
+
+}
+
+.flip-card-back {
+    transform: rotateY(-180deg); // Default state of the back side
+
+}
+
+.flipped .flip-card-front {
+    transform: rotateY(180deg); // Flip the front card to 180deg when active
+}
+
+.flipped .flip-card-back {
+    transform: rotateY(0deg); // Flip the back card to 0deg when active
+}
+
+.header-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $padding;
+    color: $header-font-color;
+    background-color: $card-color;
+    border-radius: 10px;
+    width: var(--card-width, 100%); // Use CSS variable for dynamic width
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    a {
+        text-decoration: none;
+        color: $header-font-color;
+    }
 }
