@@ -11,19 +11,27 @@ import {themePhotos} from "../assets/constants"
 const themes = {
     "pink": {
         '--background-color': '#dddcdd',
-        '--header-color': '#FFCFCF',
         '--card-color': '#d1abc0',
         '--text-color': '#333',
         '--padding': '20px',
         '--header-font-color': '#F7F9F2',
+        '--contact-text-color': '#333',
     },
     "black": {
         '--background-color': '#010e26',
-        '--header-color': '#FFCFCF',
         '--card-color': '#f6fbec',
         '--text-color': '#333',
         '--padding': '20px',
         '--header-font-color': '#F7F9F2',
+        '--contact-text-color': '#f6fbec',
+    },
+    "yellow": {
+        '--background-color': '#f6fbec',
+        '--card-color': '#FFDE95',
+        '--text-color': '#333',
+        '--padding': '20px',
+        '--header-font-color': '#F7F9F2',
+        '--contact-text-color': '#333',
     }
 }
 
@@ -70,6 +78,13 @@ export default function Landing() {
         setSelectedPage(page);
     }
 
+    function setTheme(theme){
+        if (selectedTheme === theme)
+            return;
+        selectTheme(theme);
+        setIsPageFlipped((prev) => !prev);
+    }
+
     function setSubPage(page) {
         if (selectedPage === page)
             return;
@@ -78,7 +93,7 @@ export default function Landing() {
     }
 
     const card2 = {
-        "home": <img src={themePhotos[selectedTheme].img} alt="Adarsh" />,
+        "home": <img src={themePhotos[selectedTheme].img} alt="Adarsh" style={{margin:"2px"}}/>,
         "project1": <p>project 1</p>,
         "project2": <p>project 2</p>,
         "project3": <p>project 3</p>,
@@ -99,7 +114,7 @@ export default function Landing() {
         <main className="container" style={themes[selectedTheme]}>
             <main className="grid-container">
                 <main className="grid-row" style={{ '--row-height': '10%' }}>
-                    <Header onPageClick={setPage} selectedTheme={selectedTheme} selectTheme={selectTheme} />
+                    <Header onPageClick={setPage} selectedTheme={selectedTheme} selectTheme={setTheme} />
                 </main>
                 <main className="grid-row" style={{ '--row-height': '90%' }}>
                     <main className="grid-col">

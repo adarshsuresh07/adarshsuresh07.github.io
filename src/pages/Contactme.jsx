@@ -27,7 +27,7 @@ const contacts = [{
 
 export default function ContactMe() {
     return (
-        <column style={{justifyContent:"unset"}}>
+        <column className="padding-container" style={{justifyContent:"unset"}}>
             <row style={{ justifyContent: "space-between", fontSize: "28px", height:"fit-content" }}>
                 <text>Let's connect!</text>
                 <MdArrowOutward />

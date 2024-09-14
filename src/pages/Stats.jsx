@@ -25,15 +25,15 @@ function getExperience() {
 
 const statsDetails = {
     "experience": {
-        display: "Experience till now",
-        icon: <PiSuitcaseBold />
+        display: "Experience",
+        icon: <PiSuitcaseBold height="25px" width="25px"/>
     },
     "projects": {
-        display: "Projects completed",
+        display: "Projects",
         icon: <FiGitPullRequest />
     },
     "leetcode": {
-        display: "Leetcode solved",
+        display: "Leetcode qns",
         icon: <MdCode />
     }
 }
@@ -62,7 +62,7 @@ export default function Stats() {
             {Object.values(stats).map((details) => {
                 return(
                 <column className="outline">
-                    {details.icon}
+                    <div className="stats-icon">{details.icon}</div>
                     <text>{details.display}</text>
                     <text>{details.value ?? "--"}</text>
                 </column>)
