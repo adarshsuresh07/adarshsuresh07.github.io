@@ -1,9 +1,7 @@
 import { MdEmail, MdCode, MdArrowOutward } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-
-
-const contacts = [{
+export const contacts = [{
     label: "Github",
     value: "adarshsuresh07",
     icon: <FaGithub />,
@@ -13,7 +11,7 @@ const contacts = [{
     value: "adarshsuresh07",
     icon: <MdCode />,
     href: "https://leetcode.com/u/adarshsuresh07"
-},{
+}, {
     label: "Email",
     value: "adarshsuresh.dev@gmail.com",
     icon: <MdEmail />,
@@ -27,29 +25,33 @@ const contacts = [{
 
 export default function ContactMe() {
     return (
-        <column className="padding-container" style={{justifyContent:"unset"}}>
-            <row style={{ justifyContent: "space-between", fontSize: "28px", height:"fit-content" }}>
+        <column className="padding-container" style={{ justifyContent: "unset" }}>
+            <row style={{ justifyContent: "space-between", fontSize: "28px", height: "fit-content" }}>
                 <text>Let's connect!</text>
                 <MdArrowOutward />
             </row>
             <dl class="contact-list contact-list--flex">
                 {contacts.map((contact) => {
-                    return (
-                        <div class="contact-list__item">
-                            <dt class="sr-only">{contact.label}</dt>
-                            <dd>
-                                <a href={contact.href} class="c-icon-button c-icon-button--right" target="_blank">
-                                    <span class="c-icon-button__detail">{contact.value}</span>
-                                    <span class="c-icon-button__icon c-icon-button__icon--right">
-                                        {contact.icon}
-                                    </span>
-                                </a>
-                            </dd>
-                        </div>
-                    )
+                    return <ContactRow contact={contact} />
                 })
                 }
             </dl>
         </column>
+    )
+}
+
+export function ContactRow({ contact }) {
+    return (
+        <div class="contact-list__item">
+            <dt class="sr-only">{contact.label}</dt>
+            <dd>
+                <a href={contact.href} class="c-icon-button c-icon-button--right" target="_blank">
+                    <span class="c-icon-button__detail">{contact.value}</span>
+                    <span class="c-icon-button__icon c-icon-button__icon--right">
+                        {contact.icon}
+                    </span>
+                </a>
+            </dd>
+        </div>
     )
 }

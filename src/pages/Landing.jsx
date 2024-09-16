@@ -1,4 +1,3 @@
-import Sukuna from "../assets/img/pink2.jpg"
 import Header from "./Header"
 import Aboutme from "./Aboutme"
 import Stats from "./Stats"
@@ -6,59 +5,46 @@ import OneLiner from "./OneLiner"
 import ContactMe from "./Contactme"
 import { useState } from "react"
 import SubPageFlipCard from "./SubPageFlipCard"
-import {themePhotos} from "../assets/constants"
-
-const themes = {
-    "pink": {
-        '--background-color': '#dddcdd',
-        '--card-color': '#d1abc0',
-        '--text-color': '#333',
-        '--padding': '20px',
-        '--header-font-color': '#F7F9F2',
-        '--contact-text-color': '#333',
-    },
-    "black": {
-        '--background-color': '#010e26',
-        '--card-color': '#f6fbec',
-        '--text-color': '#333',
-        '--padding': '20px',
-        '--header-font-color': '#F7F9F2',
-        '--contact-text-color': '#f6fbec',
-    },
-    "yellow": {
-        '--background-color': '#f6fbec',
-        '--card-color': '#FFDE95',
-        '--text-color': '#333',
-        '--padding': '20px',
-        '--header-font-color': '#F7F9F2',
-        '--contact-text-color': '#333',
-    }
-}
+import { themeProps } from "../assets/constants"
+import { Sidebar } from "./project/Sidebar"
+import { projects } from "../assets/data/project"
+import KeyNote from "./project/Keynote"
+import VisitCard from "./VisitCard"
+import TechnologyCard from "./project/TechnologyCard"
+import Carousel from "../components/Carousel"
 
 const card1 = {
     "home": <OneLiner />,
-    "project1": <p>project 1</p>,
-    "project2": <p>project 2</p>,
-    "project3": <p>project 3</p>,
     "experience": <p>experience</p>
 }
 
 const card3 = {
     "home": <Aboutme />,
-    "project1": <p>project 1</p>,
-    "project2": <p>project 2</p>,
-    "project3": <p>project 3</p>,
     "experience": <p>experience</p>
 }
+
+
 const card4 = {
     "home": <>
         <p>Have some questions?</p>
         <a href="#">Contact me</a></>,
-    "project1": <p>project 1</p>,
-    "project2": <p>project 2</p>,
-    "project3": <p>project 3</p>,
+    [projects[0].id]: <Carousel />,
+    [projects[1].id]: <p>project 2</p>,
+    [projects[2].id]: <p>project 3</p>,
     "experience": <p>experience</p>
 }
+
+const card6 = {
+    "home": <VisitCard page={"home"} />,
+    "project": <VisitCard page={"project"} />,
+    "experience": <VisitCard page={"experience"} />
+}
+
+projects.forEach((project) => {
+    card1[project.id] = <KeyNote label={project.name} keyNotes={project.key_points} />
+    card3[project.id] = <TechnologyCard project={project} />
+    card4[project.id] = <Carousel slides={project.screenshots} />
+})
 
 function getSubPageIfExist(page) {
     const pages = page.split(".");
@@ -72,46 +58,49 @@ export default function Landing() {
     const [selectedTheme, selectTheme] = useState("pink");
 
     function setPage(page) {
-        if (selectedPage === page)
-            return;
-        setIsPageFlipped((prev) => !prev);
-        setSelectedPage(page);
+        setSelectedPage((prevPage) => {
+            if (prevPage === page)
+                return prevPage;
+            setIsPageFlipped((prev) => !prev);
+            return page;
+        });
     }
 
-    function setTheme(theme){
-        if (selectedTheme === theme)
-            return;
-        selectTheme(theme);
-        setIsPageFlipped((prev) => !prev);
+    function setTheme(theme) {
+        selectTheme((prevTheme) => {
+            if (prevTheme === theme)
+                return prevTheme;
+            setIsPageFlipped((prev) => !prev);
+            return theme;
+        });
     }
 
     function setSubPage(page) {
-        if (selectedPage === page)
-            return;
-        setIsSubPageFlipped((prev) => !prev);
-        setSelectedPage(page);
+        setSelectedPage((prevPage) => {
+            if (prevPage === page)
+                return prevPage;
+            setIsSubPageFlipped((prev) => !prev);
+            return page;
+        });
     }
 
     const card2 = {
-        "home": <img src={themePhotos[selectedTheme].img} alt="Adarsh" style={{margin:"2px"}}/>,
-        "project1": <p>project 1</p>,
-        "project2": <p>project 2</p>,
-        "project3": <p>project 3</p>,
+        "home": <img src={themeProps[selectedTheme].img} alt="Adarsh" style={{ margin: "2px" }} />,
         "experience": <p>experience</p>
     }
 
+    projects.forEach((project) => {
+        card2[project.id] = <></>
+    })
+
     const card5 = {
         "home": <ContactMe />,
-        "project": <div>
-            <p onClick={() => setSubPage("project.project1")}>project 1</p>
-            <p onClick={() => setSubPage("project.project2")}>project 2</p>
-            <p onClick={() => setSubPage("project.project3")}>project 3</p>
-        </div>,
+        "project": <Sidebar onSelect={setSubPage} />,
         "experience": <p>experience</p>,
     }
 
     return (
-        <main className="container" style={themes[selectedTheme]}>
+        <main className="container" style={themeProps[selectedTheme].theme}>
             <main className="grid-container">
                 <main className="grid-row" style={{ '--row-height': '10%' }}>
                     <Header onPageClick={setPage} selectedTheme={selectedTheme} selectTheme={setTheme} />
@@ -152,9 +141,16 @@ export default function Landing() {
                         </main>
                     </main>
                     <main className="grid-col" style={{ '--col-width': '35%' }}>
-                        <main className="grid-row" style={{ '--row-height': '85%' }}>
+                        <main className="grid-row" style={{ '--row-height': '70%' }}>
                             <SubPageFlipCard
                                 content={card5[selectedPage.split(".")[0]]}
+                                isPageFlipped={isPageFlipped}
+                                isSubPageFlipped={false}
+                            />
+                        </main>
+                        <main className="grid-row" style={{ '--row-height': '15%' }}>
+                            <SubPageFlipCard
+                                content={card6[selectedPage.split(".")[0]]}
                                 isPageFlipped={isPageFlipped}
                                 isSubPageFlipped={false}
                             />
