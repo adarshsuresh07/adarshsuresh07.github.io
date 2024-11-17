@@ -348,11 +348,45 @@ name {
         padding: 8px 5px;
     }
 
-    .stack-header{
+    .stack-header {
         font-size: 26px;
         font-weight: 600;
         position: absolute;
         bottom: 25px;
         left: 25px;
+    }
+}
+
+.sidebar-card {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    .sidebar-header{
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    .sidebar-column{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 12px;
+    }
+
+    .sidebar-item {
+        border: 2px solid var(--background-color);
+        border-radius: 8px;
+        padding: 5px 30px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .sidebar-item:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
     }
 }

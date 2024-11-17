@@ -23,7 +23,7 @@ export const themeProps = {
         themeColor: "#010e26",
         theme: {
             '--background-color': '#010e26',
-            '--card-color': '#FFF7E6',
+            '--card-color': '#f6fbec',
             '--text-color': '#333',
             '--padding': '20px',
             '--header-font-color': '#F7F9F2',

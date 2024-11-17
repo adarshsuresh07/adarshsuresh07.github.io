@@ -1,23 +1,20 @@
 import { projects } from "../../assets/data/project"
 
-export function Sidebar({ onSelect }) {
+export function Sidebar({ onSelect, selected }) {
 
     return (
-        <column className="padding-container" style={{ justifyContent: "unset" }}>
-            <row style={{ justifyContent: "space-between", fontSize: "28px", height: "fit-content" }}>
-                <text>Project list</text>
-                {/* <MdArrowOutward /> */}
-            </row>
-            <dl class="contact-list contact-list--flex">
+        <div className="sidebar-card">
+            <text className="sidebar-header">Project list</text>
+            <dl class="sidebar-column">
                 {projects.map((project) => {
                     return (
-                        <div class="contact-list__item" onClick={() => onSelect(`project.${project.id}`)} style={{ cursor: "pointer" }}>
+                        <div class="sidebar-item" onClick={() => onSelect(`project.${project.id}`)} style={{ cursor: "pointer" }}>
                             {project.name}
                         </div>
                     )
                 })
                 }
             </dl>
-        </column>
+        </div>
     )
 }
