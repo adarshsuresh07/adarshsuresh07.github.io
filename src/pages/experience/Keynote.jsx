@@ -1,4 +1,4 @@
-export default function KeyNoteCard({ label, keyNotes }) {
+export default function ExperienceKeynote({ label, keyNotes }) {
     return (
         <div className="padding-container">
             <div className="text" style={{fontSize: "24px", fontWeight:"600"}}>{label}</div>
@@ -13,4 +13,4 @@ export default function KeyNoteCard({ label, keyNotes }) {
             </ul>
         </div>
     )
-}
+} 

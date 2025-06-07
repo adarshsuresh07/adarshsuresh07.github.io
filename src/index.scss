@@ -60,7 +60,7 @@ body {
     }
 }
 
-row {
+.row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -69,7 +69,7 @@ row {
     gap: 15px;
 }
 
-column {
+.column {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,14 +90,18 @@ column {
             font-size: 35px;
         }
 
-        text {
+        .text {
             font-size: 14px;
         }
     }
 }
 
-name {
+.name {
     font-size: 24px;
+}
+
+.text {
+    // Add any global text styles here if needed
 }
 
 .one-liner {
@@ -140,7 +144,7 @@ name {
     background-color: var(--background-color);
     transition: background-color 0.7s ease;
     padding: 10px 10px 10px 25px;
-    border-radius: 999px;
+    border-radius: 10px;
     transition: color 200ms;
     justify-content: flex-start;
 
@@ -153,7 +157,7 @@ name {
 .c-icon-button__icon {
     display: flex;
     flex: 0 0 auto;
-    border-radius: 50%;
+    border-radius: 8px;
     width: 35px;
     height: 35px;
     background-color: var(--card-color);
@@ -242,9 +246,15 @@ name {
     height: 100%;
     overflow: hidden;
 
-    a {
-        text-decoration: none;
+    .nav-link {
         color: var(--background-color);
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        user-select: none;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
 
@@ -357,36 +367,59 @@ name {
     }
 }
 
-.sidebar-card {
-    width: 100%;
+.sidebar {
+    padding: 20px;
     height: 100%;
-    overflow: hidden;
-    padding: var(--padding);
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-
-    .sidebar-header{
-        font-size: 26px;
+    overflow: auto;
+    
+    .sidebar-title {
+        font-size: 24px;
         font-weight: 600;
+        padding-bottom: 5px;
     }
-
-    .sidebar-column{
+    
+    .sidebar-items {
         display: flex;
         flex-direction: column;
-        align-items: end;
-        gap: 12px;
+        gap: 10px;
+        margin-bottom: 10px;
     }
-
+    
     .sidebar-item {
-        border: 2px solid var(--background-color);
-        border-radius: 8px;
-        padding: 5px 30px;
-        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        background-color: var(--background-color);
+        color: var(--text-color-on-card-color);
         cursor: pointer;
-    }
-
-    .sidebar-item:hover {
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+        transition: all 0.2s ease;
+        padding: 10px 0 10px 20px;
+        
+        &:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .item-title {
+            font-size: 10px;
+            font-weight: 600;
+            background: transparent;
+            font-size: 14px;
+        }
+        
+        .item-subtitle {
+            font-size: 8px;
+            margin-top: 2px;
+            opacity: 0.8;
+            background-color: transparent;
+            font-size: 13px;
+        }
+        
+        .item-meta {
+            font-size: 7px;
+            margin-top: 2px;
+            opacity: 0.6;
+            background-color: transparent;
+            font-size: 12px;
+        }
     }
 }

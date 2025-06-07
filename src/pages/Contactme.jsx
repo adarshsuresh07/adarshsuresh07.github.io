@@ -25,29 +25,29 @@ export const contacts = [{
 
 export default function ContactMe() {
     return (
-        <column className="padding-container" style={{ justifyContent: "unset" }}>
-            <row style={{ justifyContent: "space-between", fontSize: "28px", height: "fit-content" }}>
-                <text>Let's connect!</text>
+        <div className="column padding-container" style={{ justifyContent: "unset" }}>
+            <div className="row" style={{ justifyContent: "space-between", fontSize: "28px", height: "fit-content" }}>
+                <div>Let's connect!</div>
                 <MdArrowOutward />
-            </row>
-            <dl class="contact-list contact-list--flex">
-                {contacts.map((contact) => {
-                    return <ContactRow contact={contact} />
+            </div>
+            <dl className="contact-list contact-list--flex">
+                {contacts.map((contact, index) => {
+                    return <ContactRow key={index} contact={contact} />
                 })
                 }
             </dl>
-        </column>
+        </div>
     )
 }
 
 export function ContactRow({ contact }) {
     return (
-        <div class="contact-list__item">
-            <dt class="sr-only">{contact.label}</dt>
+        <div className="contact-list__item">
+            <dt className="sr-only">{contact.label}</dt>
             <dd>
-                <a href={contact.href} class="c-icon-button c-icon-button--right" target="_blank">
-                    <span class="c-icon-button__detail">{contact.value}</span>
-                    <span class="c-icon-button__icon c-icon-button__icon--right">
+                <a href={contact.href} className="c-icon-button c-icon-button--right" target="_blank" rel="noopener noreferrer">
+                    <span className="c-icon-button__detail">{contact.value}</span>
+                    <span className="c-icon-button__icon c-icon-button__icon--right">
                         {contact.icon}
                     </span>
                 </a>

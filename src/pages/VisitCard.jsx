@@ -19,9 +19,9 @@ export default function VisitCard({ page }) {
     const visitData = visitDetails[page];
 
     return (
-            <row className="padding-container visit-card" style={{ fontSize: "26px", cursor:"pointer" }} onClick={() => window.open(visitData.link, "_blank")}>
-                <text style={{ fontSize: "18px" }}>{visitData.label}</text>
+            <div className="row padding-container visit-card" style={{ fontSize: "26px", cursor:"pointer" }} onClick={() => window.open(visitData.link, "_blank")}>
+                <div style={{ fontSize: "18px" }}>{visitData.label}</div>
                 <MdArrowOutward />
-            </row>
+            </div>
     )
 }

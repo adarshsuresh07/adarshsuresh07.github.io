@@ -14,7 +14,8 @@ export const themeProps = {
             '--padding': '20px',
             '--header-font-color': '#F7F9F2',
             '--contact-text-color': '#333',
-            '--complementary-color': '#d1abc0'
+            '--complementary-color': '#d1abc0',
+            '--text-color-on-card-color': '#333'
         }
     },
     "black": {
@@ -28,7 +29,8 @@ export const themeProps = {
             '--padding': '20px',
             '--header-font-color': '#F7F9F2',
             '--contact-text-color': '#f6fbec',
-            '--complementary-color': '#E2F2C2'
+            '--complementary-color': '#E2F2C2',
+            '--text-color-on-card-color': '#f6fbec'
         }
     },
     "yellow": {
@@ -42,7 +44,8 @@ export const themeProps = {
             '--padding': '20px',
             '--header-font-color': '#FFF7E6',
             '--contact-text-color': '#333',
-            '--complementary-color': '#FFC544'
+            '--complementary-color': '#FFC544',
+            '--text-color-on-card-color': '#333'
         }
     }
 }

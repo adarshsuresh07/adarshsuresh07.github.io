@@ -59,13 +59,13 @@ export default function Stats() {
 
     return (
         <>
-            {Object.values(stats).map((details) => {
+            {Object.values(stats).map((details, index) => {
                 return(
-                <column className="outline">
+                <div key={index} className="column outline">
                     <div className="stats-icon">{details.icon}</div>
-                    <text>{details.display}</text>
-                    <text>{details.value ?? "--"}</text>
-                </column>)
+                    <div className="text">{details.display}</div>
+                    <div className="text">{details.value ?? "--"}</div>
+                </div>)
             })}
         </>
     )

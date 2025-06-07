@@ -3,7 +3,8 @@ import Aboutme from "./Aboutme"
 import Stats from "./Stats"
 import OneLiner from "./OneLiner"
 import ContactMe from "./Contactme"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import SubPageFlipCard from "./SubPageFlipCard"
 import { themeProps } from "../assets/constants"
 import { Sidebar } from "./project/Sidebar"
@@ -12,26 +13,23 @@ import KeyNote from "./project/Keynote"
 import VisitCard from "./VisitCard"
 import TechnologyCard from "./project/TechnologyCard"
 import Carousel from "../components/Carousel"
+import { ExperienceSidebar } from "./experience/Sidebar"
+import { allExperiences } from "../assets/data/experience.jsx"
+import ExperienceKeynote from "./experience/Keynote"
+import ExperienceTechnologyCard from "./experience/TechnologyCard"
 
 const card1 = {
-    "home": <OneLiner />,
-    "experience": <p>experience</p>
+    "home": <OneLiner />
 }
 
 const card3 = {
-    "home": <Aboutme />,
-    "experience": <p>experience</p>
+    "home": <Aboutme />
 }
-
 
 const card4 = {
     "home": <>
         <p>Have some questions?</p>
         <a href="#">Contact me</a></>,
-    [projects[0].id]: <Carousel />,
-    [projects[1].id]: <p>project 2</p>,
-    [projects[2].id]: <p>project 3</p>,
-    "experience": <p>experience</p>
 }
 
 const card6 = {
@@ -46,24 +44,60 @@ projects.forEach((project) => {
     card4[project.id] = <Carousel slides={project.screenshots} />
 })
 
+allExperiences.forEach((experience) => {
+    card1[experience.id] = <ExperienceKeynote label={`${experience.company} - ${experience.role}`} keyNotes={experience.key_points} />
+    card3[experience.id] = <ExperienceTechnologyCard experience={experience} />
+    card4[experience.id] = <></>
+})
+
 function getSubPageIfExist(page) {
     const pages = page.split(".");
     return pages.length > 1 ? pages[1] : pages[0];
 }
 
 export default function Landing() {
+    const { projectId, experienceId } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
+    
     const [isPageFlipped, setIsPageFlipped] = useState(false);
     const [isSubPageFlipped, setIsSubPageFlipped] = useState(false);
-    const [selectedPage, setSelectedPage] = useState("home");
     const [selectedTheme, selectTheme] = useState("pink");
+    const [previousPage, setPreviousPage] = useState("");
+
+    const getCurrentPage = () => {
+        const path = location.pathname;
+        if (path === '/' || path === '/home') return 'home';
+        if (path.startsWith('/project/')) return `project.${projectId}`;
+        if (path.startsWith('/experience/')) return `experience.${experienceId}`;
+        return path;
+    };
+
+    const selectedPage = getCurrentPage();
+
+    useEffect(() => {
+        const currentPage = selectedPage;
+        const currentMainPage = currentPage.split('.')[0];
+        const previousMainPage = previousPage.split('.')[0];
+        
+        if (previousPage && currentPage !== previousPage) {
+            if (currentMainPage === previousMainPage) {
+                setIsSubPageFlipped(prev => !prev);
+            } else {
+                setIsPageFlipped(prev => !prev);
+            }
+        }
+        setPreviousPage(currentPage);
+    }, [selectedPage]);
 
     function setPage(page) {
-        setSelectedPage((prevPage) => {
-            if (prevPage === page)
-                return prevPage;
-            setIsPageFlipped((prev) => !prev);
-            return page;
-        });
+        if (page === 'project') {
+            navigate(`/project/${projects[0].id}`);
+        } else if (page === 'experience') {
+            navigate(`/experience/${allExperiences[0].id}`);
+        } else {
+            navigate(`/${page}`);
+        }
     }
 
     function setTheme(theme) {
@@ -76,27 +110,26 @@ export default function Landing() {
     }
 
     function setSubPage(page) {
-        setSelectedPage((prevPage) => {
-            if (prevPage === page)
-                return prevPage;
-            setIsSubPageFlipped((prev) => !prev);
-            return page;
-        });
+        const urlPath = page.replace('.', '/');
+        navigate(`/${urlPath}`);
     }
 
     const card2 = {
-        "home": <img src={themeProps[selectedTheme].img} alt="Adarsh" style={{ margin: "2px" }} />,
-        "experience": <p>experience</p>
+        "home": <img src={themeProps[selectedTheme].img} alt="Adarsh" style={{ margin: "2px" }} />
     }
 
     projects.forEach((project) => {
         card2[project.id] = <></>
     })
 
+    allExperiences.forEach((experience) => {
+        card2[experience.id] = <></>
+    })
+
     const card5 = {
         "home": <ContactMe />,
         "project": <Sidebar onSelect={setSubPage} />,
-        "experience": <p>experience</p>,
+        "experience": <ExperienceSidebar onSelect={setSubPage} />
     }
 
     return (
@@ -156,9 +189,9 @@ export default function Landing() {
                             />
                         </main>
                         <main className="grid-row" style={{ '--row-height': '15%' }}>
-                            <row>
+                            <div className="row">
                                 <Stats />
-                            </row>
+                            </div>
                         </main>
                     </main>
                 </main>
