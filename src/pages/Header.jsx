@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { themeProps } from "../assets/constants"
 
-export default function Header({ onPageClick, selectedTheme, selectTheme }) {
+export default function Header({ onPageClick, selectedTheme, selectTheme, currentPage }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const themes = Object.values(themeProps).filter((theme) => theme.id !== selectedTheme);
@@ -32,9 +32,24 @@ export default function Header({ onPageClick, selectedTheme, selectTheme }) {
                     <div className="name">Adarsh S</div>
                 </div>
                 <div className="row" style={{ width: "fit-content" }}>
-                    <span className="nav-link" onClick={() => onPageClick("home")}>Home</span>
-                    <span className="nav-link" onClick={() => onPageClick("project")}>Projects</span>
-                    <span className="nav-link" onClick={() => onPageClick("experience")}>Experience</span>
+                    <span 
+                        className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} 
+                        onClick={() => onPageClick("home")}
+                    >
+                        Home
+                    </span>
+                    <span 
+                        className={`nav-link ${currentPage === 'project' ? 'active' : ''}`} 
+                        onClick={() => onPageClick("project")}
+                    >
+                        Projects
+                    </span>
+                    <span 
+                        className={`nav-link ${currentPage === 'experience' ? 'active' : ''}`} 
+                        onClick={() => onPageClick("experience")}
+                    >
+                        Experience
+                    </span>
                 </div>
                 
                 <button className="mobile-menu-button" onClick={toggleMobileMenu}>
@@ -46,9 +61,24 @@ export default function Header({ onPageClick, selectedTheme, selectTheme }) {
                 <button className="close-button" onClick={closeMobileMenu}>
                     ×
                 </button>
-                <div className="nav-link" onClick={() => handleMobileNavClick("home")}>Home</div>
-                <div className="nav-link" onClick={() => handleMobileNavClick("project")}>Projects</div>
-                <div className="nav-link" onClick={() => handleMobileNavClick("experience")}>Experience</div>
+                <div 
+                    className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} 
+                    onClick={() => handleMobileNavClick("home")}
+                >
+                    Home
+                </div>
+                <div 
+                    className={`nav-link ${currentPage === 'project' ? 'active' : ''}`} 
+                    onClick={() => handleMobileNavClick("project")}
+                >
+                    Projects
+                </div>
+                <div 
+                    className={`nav-link ${currentPage === 'experience' ? 'active' : ''}`} 
+                    onClick={() => handleMobileNavClick("experience")}
+                >
+                    Experience
+                </div>
             </nav>
         </>
     )

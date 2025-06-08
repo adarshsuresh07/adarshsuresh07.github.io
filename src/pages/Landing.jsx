@@ -137,7 +137,12 @@ export default function Landing() {
         <main className="container" style={themeProps[selectedTheme].theme}>
             <main className="grid-container">
                 <main className="grid-row" style={{ '--row-height': '10%' }}>
-                    <Header onPageClick={setPage} selectedTheme={selectedTheme} selectTheme={setTheme} />
+                    <Header 
+                        onPageClick={setPage} 
+                        selectedTheme={selectedTheme} 
+                        selectTheme={setTheme}
+                        currentPage={selectedPage.split('.')[0]}
+                    />
                 </main>
                 <main className="grid-row" style={{ '--row-height': '90%' }}>
                     <main className="grid-col">

@@ -255,6 +255,13 @@ body {
         &:hover {
             opacity: 0.8;
         }
+
+        &.active {
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: var(--background-color);
+            text-underline-offset: 4px;
+        }
     }
 }
 
@@ -479,38 +486,59 @@ body {
 
     .flip-card {
         width: 100% !important;
-        height: auto !important;
-        min-height: 200px;
         position: relative !important;
-        transform: none !important; // Disable flip animations on mobile
-        transition: none !important; // Remove flip transitions
-        perspective: none !important; // Remove 3D effect
+        // Re-enable flip animations on mobile
+        perspective: 1000px !important;
+        transform-style: preserve-3d !important;
+        transition: transform 0.7s ease !important;
+        min-height: 200px !important;
     }
 
     .flip-card-front {
-        transform: none !important; // Disable flip transforms
-        position: relative !important; // Change from absolute positioning
-        backface-visibility: visible !important; // Show content normally
-        display: block !important; // Always show front
+        // Front card defines the height (relative positioning)
+        position: relative !important;
+        width: 100% !important;
+        min-height: 200px !important;
+        transition: transform 0.7s ease !important;
+        backface-visibility: hidden !important;
+        z-index: 2;
     }
-    
+
     .flip-card-back {
-        display: none !important; // Hide back side on mobile to prevent duplicates
+        // Back card overlays (absolute positioning)
+        backface-visibility: hidden !important;
+        position: absolute !important;
+        width: 100% !important;
+        min-height: 200px !important;
+        transition: transform 0.7s ease !important;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    // When flipped, swap the positioning roles
+    .flipped .flip-card-front {
+        position: absolute !important;
+        z-index: 1;
+    }
+
+    .flipped .flip-card-back {
+        position: relative !important;
+        z-index: 2;
     }
     
     .flipped .flip-card-front {
-        transform: none !important; // Disable flip transforms
-        display: block !important; // Keep front visible
+        transform: rotateY(180deg) !important;
     }
     
     .flipped .flip-card-back {
-        display: none !important; // Keep back hidden even when flipped
+        transform: rotateY(0deg) !important;
     }
 
     .card {
         width: 100% !important;
         height: auto !important;
-        min-height: 200px;
+        min-height: 200px !important;
     }
 
     .header-card {
@@ -763,6 +791,12 @@ body {
             cursor: pointer;
             padding: 20px;
             text-align: center;
+
+            &.active {
+                text-decoration: underline;
+                text-decoration-color: var(--background-color);
+                text-underline-offset: 6px;
+            }
         }
 
         .close-button {
