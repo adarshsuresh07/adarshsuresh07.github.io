@@ -17,6 +17,7 @@ import { ExperienceSidebar } from "./experience/Sidebar"
 import { allExperiences } from "../assets/data/experience.jsx"
 import ExperienceKeynote from "./experience/Keynote"
 import ExperienceTechnologyCard from "./experience/TechnologyCard"
+import { contacts } from "./Contactme"
 
 const card1 = {
     "home": <OneLiner />
@@ -62,7 +63,7 @@ export default function Landing() {
     
     const [isPageFlipped, setIsPageFlipped] = useState(false);
     const [isSubPageFlipped, setIsSubPageFlipped] = useState(false);
-    const [selectedTheme, selectTheme] = useState("pink");
+    const [selectedTheme, selectTheme] = useState("black");
     const [previousPage, setPreviousPage] = useState("");
 
     const getCurrentPage = () => {
@@ -172,6 +173,11 @@ export default function Landing() {
                                 />
                             </main>
                         </main>
+                        
+                        {/* Mobile-only Stats after Card 1 */}
+                        <div className="mobile-stats">
+                            <Stats />
+                        </div>
                     </main>
                     <main className="grid-col" style={{ '--col-width': '35%' }}>
                         <main className="grid-row" style={{ '--row-height': '70%' }}>
@@ -195,7 +201,49 @@ export default function Landing() {
                         </main>
                     </main>
                 </main>
+                
+                {/* Mobile-only Visit Card */}
+                <div className="mobile-visit-card">
+                    {card6[selectedPage.split(".")[0]]}
+                </div>
             </main>
+            
+            {/* Mobile Bottom Navigation */}
+            <div className="mobile-bottom-nav">
+                {selectedPage.startsWith('project') && projects.map((project, index) => (
+                    <div 
+                        key={project.id}
+                        className={`mobile-nav-item ${projectId === project.id ? 'active' : ''}`}
+                        onClick={() => setSubPage(`project.${project.id}`)}
+                    >
+                        <div className="mobile-nav-title">{project.name}</div>
+                        <div className="mobile-nav-subtitle">{project.year}</div>
+                    </div>
+                ))}
+                
+                {selectedPage.startsWith('experience') && allExperiences.map((experience, index) => (
+                    <div 
+                        key={experience.id}
+                        className={`mobile-nav-item ${experienceId === experience.id ? 'active' : ''}`}
+                        onClick={() => setSubPage(`experience.${experience.id}`)}
+                    >
+                        <div className="mobile-nav-title">{experience.company}</div>
+                        <div className="mobile-nav-subtitle">{experience.role}</div>
+                    </div>
+                ))}
+                
+                {selectedPage === 'home' && contacts.map((contact, index) => (
+                    <div 
+                        key={contact.label}
+                        className="mobile-nav-item contact-nav-item"
+                        onClick={() => window.open(contact.href, "_blank")}
+                    >
+                        <div className="mobile-nav-icon">{contact.icon}</div>
+                        <div className="mobile-nav-title">{contact.label}</div>
+                        <div className="mobile-nav-subtitle">{contact.value}</div>
+                    </div>
+                ))}
+            </div>
         </main>
     )
 }

@@ -423,3 +423,362 @@ body {
         }
     }
 }
+
+.mobile-menu-button {
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+.mobile-bottom-nav {
+    display: none;
+}
+
+.mobile-visit-card {
+    display: none;
+}
+
+.mobile-stats {
+    display: none;
+}
+
+// Mobile responsiveness - Clean restart
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 10px;
+        height: 100%;
+    }
+
+    .grid-container {
+        gap: 0;
+    }
+
+    .grid-row {
+        flex-direction: column;
+        gap: 20px;
+        height: auto !important;
+        min-height: unset !important; // Remove minimum height constraints
+    }
+
+    .grid-col {
+        flex-direction: column;
+        gap: 20px;
+        width: 100% !important;
+        height: auto !important;
+        min-height: unset !important; // Remove minimum height constraints
+    }
+    
+    // Override inline styles and CSS variables for heights
+    * {
+        --row-height: auto !important;
+        --col-height: auto !important;
+        --card-height: auto !important;
+    }
+
+    .flip-card {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 200px;
+        position: relative !important;
+        transform: none !important; // Disable flip animations on mobile
+        transition: none !important; // Remove flip transitions
+        perspective: none !important; // Remove 3D effect
+    }
+
+    .flip-card-front {
+        transform: none !important; // Disable flip transforms
+        position: relative !important; // Change from absolute positioning
+        backface-visibility: visible !important; // Show content normally
+        display: block !important; // Always show front
+    }
+    
+    .flip-card-back {
+        display: none !important; // Hide back side on mobile to prevent duplicates
+    }
+    
+    .flipped .flip-card-front {
+        transform: none !important; // Disable flip transforms
+        display: block !important; // Keep front visible
+    }
+    
+    .flipped .flip-card-back {
+        display: none !important; // Keep back hidden even when flipped
+    }
+
+    .card {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 200px;
+    }
+
+    .header-card {
+        width: 100% !important;
+        padding: 15px;
+        position: relative;
+        
+        .row:last-child {
+            display: none !important;
+        }
+        
+        .nav-link {
+            display: none !important;
+        }
+    }
+
+    // Hide the sidebar card on mobile (card 5 - contacts/project/experience navigation)
+    // Target the specific sidebar column (35% width) in the main content row
+    .grid-container > .grid-row:nth-child(2) > .grid-col:last-child {
+        display: none !important;
+    }
+    
+    // Ensure all cards are visible in mobile layout
+    .grid-row {
+        min-height: 95px !important;
+        
+        .grid-col {
+            display: flex !important;
+            min-height: 200px !important;
+        }
+    }
+    
+    // Make sure card 2 (profile image) is visible
+    .grid-row:nth-child(2) .grid-row:first-child .grid-col:last-child {
+        display: flex !important;
+        min-width: 100% !important;
+    }
+    
+    // Make sure card 4 (carousel/content) is visible  
+    .grid-row:nth-child(2) .grid-row:last-child .grid-col:last-child {
+        display: flex !important;
+        min-width: 100% !important;
+    }
+
+    // Mobile bottom navigation
+    .mobile-bottom-nav {
+        position: fixed !important;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--card-color);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 8px 20px; // Increased horizontal padding for better spacing
+        z-index: 100;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start; // Start alignment for scrollable content, center for contact
+        gap: 16px; // Balanced gap for all navigation types
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        overflow-y: hidden;
+        min-height: 60px; // Set smaller minimum height
+        
+        /* Hide scrollbar for cleaner look */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 16px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        min-width: 140px; // Increased for better readability
+        max-width: 160px;
+        color: var(--background-color);
+        flex-shrink: 0;
+        
+        // Add extra margin to first and last items for better edge spacing
+        &:first-child {
+            margin-left: 4px;
+        }
+        
+        &:last-child {
+            margin-right: 4px;
+        }
+        
+        &:active {
+            transform: scale(0.95);
+        }
+        
+        &.active {
+            background-color: var(--background-color);
+            color: var(--card-color);
+        }
+        
+        &.contact-nav-item {
+            background-color: var(--background-color);
+            color: var(--text-color-on-card-color);
+            min-width: 70px; // Wider for better touch targets
+            max-width: 80px;
+            padding: 12px 16px; // Increased padding for better visual balance
+            
+            // Hide contact labels and values - icons only
+            .mobile-nav-title,
+            .mobile-nav-subtitle {
+                display: none; // Hide both labels and values
+            }
+            
+            .mobile-nav-icon {
+                margin-bottom: 0; // No margin needed since no text
+                font-size: 24px; // Larger icon for better visibility
+            }
+            
+            &:active {
+                transform: scale(0.95);
+            }
+            
+            &:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+                transform: translateY(-2px);
+            }
+        }
+    }
+    
+    // Center contact items when they're the only navigation type
+    .mobile-bottom-nav:has(.contact-nav-item):not(:has(.mobile-nav-item:not(.contact-nav-item))) {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .mobile-nav-icon {
+        font-size: 24px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-nav-title {
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 4px;
+        text-align: center;
+    }
+
+    .mobile-nav-subtitle {
+        font-size: 10px;
+        opacity: 0.8;
+        text-align: center;
+    }
+
+    // Add bottom padding to main content to account for fixed bottom nav
+    .container {
+        padding-bottom: 70px !important; // Reduced from 80px to match smaller navbar
+    }
+    
+    // Mobile visit card
+    .mobile-visit-card {
+        width: 100% !important;
+        min-height: 80px !important;
+        margin: 10px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background-color: var(--card-color) !important;
+        border-radius: 10px !important;
+        padding: 15px !important;
+        
+        .visit-card {
+            width: 100% !important;
+            height: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+                         justify-content: space-between !important;
+         }
+     }
+     
+     // Mobile stats after Card 1
+     .mobile-stats {
+         width: 100% !important;
+         min-height: 60px !important;
+         margin: 10px 0 !important;
+         display: flex !important;
+         align-items: center !important;
+         justify-content: center !important;
+         background-color: var(--card-color) !important;
+         border-radius: 10px !important;
+         padding: 15px !important;
+         
+         .row {
+             width: 100% !important;
+             display: flex !important;
+             align-items: center !important;
+             justify-content: center !important;
+         }
+     }
+
+     .mobile-menu-button {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--background-color);
+        font-size: 24px;
+        cursor: pointer;
+        width: 44px;
+        height: 44px;
+        z-index: 10;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--card-color);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        &.active {
+            transform: translateX(0);
+        }
+
+        .nav-link {
+            color: var(--background-color);
+            font-size: 28px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--background-color);
+            font-size: 32px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

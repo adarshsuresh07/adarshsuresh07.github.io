@@ -136,6 +136,39 @@
     }
 }
 
+// Mobile responsiveness for navigation arrows
+@media screen and (max-width: 768px) {
+    .nav-arrow {
+        opacity: 1 !important; // Always show arrows on mobile
+        background: rgba(0, 0, 0, 0.7); // Slightly more opaque for better visibility
+        width: 44px; // Larger touch target
+        border-radius: 50%; // Circular buttons for mobile
+        height: 44px !important; // Fixed height instead of 100%
+        position: absolute !important; // Change from fixed to absolute
+        top: 50% !important; // Center vertically
+        transform: translateY(-50%); // Center vertically
+        
+        &.prev {
+            left: 10px; // Move away from edge
+        }
+        
+        &.next {
+            right: 10px; // Move away from edge
+        }
+        
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        // Enhanced touch interaction
+        &:active {
+            transform: translateY(-50%) scale(0.9);
+            background: rgba(0, 0, 0, 0.9);
+        }
+    }
+}
+
 .overlay {
     background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
